@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://hxnrogls8o3b"]
+
+[ext_resource type="Script" uid="uid://basht8iqocb48" path="res://code/ui/world_ui.gd" id="1_g60h1"]
+
+[node name="WorldUi" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_g60h1")
+id = &"world_ui"
+metadata/_custom_type_script = "uid://burroejpb3pyx"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "world ui"

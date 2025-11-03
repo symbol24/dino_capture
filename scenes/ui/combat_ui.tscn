@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1rac6si7robk"]
+
+[ext_resource type="Script" uid="uid://bhdivbukgdmm0" path="res://code/ui/combat_ui.gd" id="1_n7134"]
+
+[node name="CombatUi" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_n7134")
+id = &"combat_ui"
+metadata/_custom_type_script = "uid://burroejpb3pyx"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "combat ui"

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Scenes" load_steps=2 format=3 uid="uid://b85a1hq3nnkbs"]
+
+[ext_resource type="Script" uid="uid://b2up7c71bc6e1" path="res://code/utilities/scenes.gd" id="1_b5506"]
+
+[resource]
+script = ExtResource("1_b5506")
+list = Dictionary[StringName, String]({
+&"combat_scene": "uid://fde82awllkma"
+})
+controls = Dictionary[StringName, String]({
+&"combat_ui": "uid://d1rac6si7robk",
+&"loading_screen": "uid://dbruh455gif05",
+&"world_ui": "uid://hxnrogls8o3b"
+})
+metadata/_custom_type_script = "uid://b2up7c71bc6e1"

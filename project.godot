@@ -11,12 +11,40 @@ config_version=5
 [application]
 
 config/name="dino_capture"
+run/main_scene="uid://blo1tu53c5gpw"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Signals="*res://code/autoloads/signals.gd"
+
+[debug]
+
+gdscript/warnings/unused_signal=0
+gdscript/warnings/integer_division=0
+gdscript/warnings/narrowing_conversion=0
+
+[display]
+
+window/size/viewport_width=256
+window/size/viewport_height=240
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="canvas_items"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/kanban_tasks/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://code/": "yellow",
+"res://data/": "purple",
+"res://scenes/": "pink",
+"res://textures/": "teal"
+}
 
 [rendering]
 

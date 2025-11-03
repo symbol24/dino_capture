@@ -4,13 +4,36 @@
 			"uuid": "00ad89b8-f4f3-4242-849e-f5988802be01",
 			"title": "Task",
 			"color": "70bafa"
+		},
+		{
+			"uuid": "bbbced2d-a047-4124-8a0a-42a2feb6059d",
+			"title": "Design",
+			"color": "e9a524"
+		},
+		{
+			"uuid": "50ece069-cff7-4b4a-8dcb-bdc2c718bb0a",
+			"title": "Backlog",
+			"color": "099e00"
+		},
+		{
+			"uuid": "777adc61-6dbc-4be1-8a2b-68e7d4a431bb",
+			"title": "Bug",
+			"color": "dc0561"
 		}
 	],
 	"stages": [
 		{
 			"uuid": "c84cc61d-87b4-4a65-8800-c4af65ad13a2",
 			"title": "Todo",
-			"tasks": []
+			"tasks": [
+				"62b0efee-d59a-461d-9661-99bbbc7c8d5c",
+				"82a1bce6-18d9-4369-9725-ab366a7278fd",
+				"a54f8f7a-ee1c-4dce-bf56-6465d11aacbf",
+				"8782a0cf-812d-490d-bb55-76b743780b95",
+				"b99ccd9d-3936-41d1-99a9-261353255d00",
+				"5b2f62a3-750e-4b26-8a30-9f38a98a3dac",
+				"58dd5172-6dbf-46c1-9ec0-6b261cb98e32"
+			]
 		},
 		{
 			"uuid": "e74c1efe-5d85-4cf6-a7cc-06531273823d",
@@ -20,10 +43,101 @@
 		{
 			"uuid": "429e0f9d-2cab-4ad4-b1de-5267f629bc20",
 			"title": "Done",
-			"tasks": []
+			"tasks": [
+				"76b8feac-c754-46de-a231-d7bfcbe0e8de",
+				"a351f97c-3c7c-4020-a3fc-3a21486f9d77",
+				"8d2cbf90-026d-4730-97d4-5afb3891acad",
+				"9b160520-1436-43ac-9722-2d62b8ce8c52",
+				"cda9534b-a50d-47e2-92d4-1cbf7ec04083"
+			]
 		}
 	],
-	"tasks": [],
+	"tasks": [
+		{
+			"uuid": "76b8feac-c754-46de-a231-d7bfcbe0e8de",
+			"title": "DESIGN",
+			"description": "Scientists go back in time to capture dinosaurs. Use sphere miniaturizartion devices.\n\n- players move about in a pokemon overworld.\n- when they encounter a dinosaur tehy enter \"battle mode\"\n- player \"attacks\" are things to distract the dino\n- dino \"attacks\" make the player scared\n- once the dino is distracted enough you can try and capture\n- some dinos allow being ridden for certain movements (water, flying)",
+			"category": "bbbced2d-a047-4124-8a0a-42a2feb6059d",
+			"steps": []
+		},
+		{
+			"uuid": "a351f97c-3c7c-4020-a3fc-3a21486f9d77",
+			"title": "OVERWORLD",
+			"description": "- grid based movement\n",
+			"category": "bbbced2d-a047-4124-8a0a-42a2feb6059d",
+			"steps": []
+		},
+		{
+			"uuid": "8d2cbf90-026d-4730-97d4-5afb3891acad",
+			"title": "COMBAT",
+			"description": "- turn based\n- player actions:\n\t- Distract:\n\t\t- NOISE\n\t\t- MOVEMENT\n\t\t- FLASHING\n\t- items\n\t- run away\n\t- switch scientist\n\n",
+			"category": "bbbced2d-a047-4124-8a0a-42a2feb6059d",
+			"steps": []
+		},
+		{
+			"uuid": "9b160520-1436-43ac-9722-2d62b8ce8c52",
+			"title": "SCIENTISTS",
+			"description": "- fear hp\n- fear resist\n- speed\n- distraction type\n- distraction strength\n- capture bonus",
+			"category": "bbbced2d-a047-4124-8a0a-42a2feb6059d",
+			"steps": []
+		},
+		{
+			"uuid": "cda9534b-a50d-47e2-92d4-1cbf7ec04083",
+			"title": "DINOS",
+			"description": "- distraction hp\n- fear power\n- speed\n- chance of fear hit\n- distraction type\n- distraction resist\n- capture resist chance",
+			"category": "bbbced2d-a047-4124-8a0a-42a2feb6059d",
+			"steps": []
+		},
+		{
+			"uuid": "62b0efee-d59a-461d-9661-99bbbc7c8d5c",
+			"title": "world movement",
+			"description": "",
+			"category": "00ad89b8-f4f3-4242-849e-f5988802be01",
+			"steps": []
+		},
+		{
+			"uuid": "82a1bce6-18d9-4369-9725-ab366a7278fd",
+			"title": "scientist data",
+			"description": "",
+			"category": "00ad89b8-f4f3-4242-849e-f5988802be01",
+			"steps": []
+		},
+		{
+			"uuid": "a54f8f7a-ee1c-4dce-bf56-6465d11aacbf",
+			"title": "dino data",
+			"description": "",
+			"category": "00ad89b8-f4f3-4242-849e-f5988802be01",
+			"steps": []
+		},
+		{
+			"uuid": "8782a0cf-812d-490d-bb55-76b743780b95",
+			"title": "world dino",
+			"description": "",
+			"category": "00ad89b8-f4f3-4242-849e-f5988802be01",
+			"steps": []
+		},
+		{
+			"uuid": "b99ccd9d-3936-41d1-99a9-261353255d00",
+			"title": "turn based combat",
+			"description": "",
+			"category": "00ad89b8-f4f3-4242-849e-f5988802be01",
+			"steps": []
+		},
+		{
+			"uuid": "5b2f62a3-750e-4b26-8a30-9f38a98a3dac",
+			"title": "combat ui",
+			"description": "",
+			"category": "00ad89b8-f4f3-4242-849e-f5988802be01",
+			"steps": []
+		},
+		{
+			"uuid": "58dd5172-6dbf-46c1-9ec0-6b261cb98e32",
+			"title": "world ui",
+			"description": "",
+			"category": "00ad89b8-f4f3-4242-849e-f5988802be01",
+			"steps": []
+		}
+	],
 	"layout": {
 		"columns": [
 			[

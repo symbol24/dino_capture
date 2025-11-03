@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://blo1tu53c5gpw"]
+
+[ext_resource type="Script" uid="uid://p3kudstqt1ev" path="res://code/utilities/boot.gd" id="1_wetwo"]
+
+[node name="Boot" type="CanvasLayer"]
+script = ExtResource("1_wetwo")

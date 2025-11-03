@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c14rnjcmd3w21"]
+
+[ext_resource type="Script" uid="uid://cw1sawtworr4x" path="res://code/scientists/world_scientist.gd" id="1_cwrjh"]
+
+[node name="WorldScientist" type="CharacterBody2D"]
+script = ExtResource("1_cwrjh")
