@@ -5,7 +5,8 @@
 [resource]
 script = ExtResource("1_b5506")
 list = Dictionary[StringName, String]({
-&"combat_scene": "uid://fde82awllkma"
+&"combat_scene": "uid://fde82awllkma",
+&"world_scene": "res://scenes/worlds/world.tscn"
 })
 controls = Dictionary[StringName, String]({
 &"combat_ui": "uid://d1rac6si7robk",

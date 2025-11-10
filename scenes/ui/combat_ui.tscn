@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://d1rac6si7robk"]
+[gd_scene load_steps=4 format=3 uid="uid://d1rac6si7robk"]
 
 [ext_resource type="Script" uid="uid://bhdivbukgdmm0" path="res://code/ui/combat_ui.gd" id="1_n7134"]
+[ext_resource type="Texture2D" uid="uid://cllhml3s3qtx8" path="res://textures/temp_combat_dino.png" id="2_21fn4"]
+[ext_resource type="Texture2D" uid="uid://cmmanjanqo8k2" path="res://textures/temp_combat_scientist.png" id="3_ppua2"]
 
 [node name="CombatUi" type="Control"]
 layout_mode = 3
@@ -9,8 +11,115 @@ script = ExtResource("1_n7134")
 id = &"combat_ui"
 metadata/_custom_type_script = "uid://burroejpb3pyx"
 
-[node name="Label" type="Label" parent="."]
+[node name="background" type="ColorRect" parent="."]
 layout_mode = 0
+offset_left = -6.0
+offset_top = -6.0
+offset_right = 166.0
+offset_bottom = 149.0
+color = Color(0.7921569, 0.8627451, 0.62352943, 1)
+
+[node name="dino" type="Control" parent="."]
+custom_minimum_size = Vector2(160, 144)
+anchors_preset = 0
 offset_right = 40.0
-offset_bottom = 23.0
-text = "combat ui"
+offset_bottom = 40.0
+
+[node name="dino_name" type="Label" parent="dino"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 56.0
+offset_bottom = 15.0
+text = "dino_name"
+metadata/_edit_lock_ = true
+
+[node name="dino_portrait" type="TextureRect" parent="dino"]
+unique_name_in_owner = true
+modulate = Color(0.1882353, 0.38431373, 0.1882353, 1)
+layout_mode = 0
+offset_left = 70.0
+offset_top = 2.0
+offset_right = 150.0
+offset_bottom = 62.0
+texture = ExtResource("2_21fn4")
+metadata/_edit_lock_ = true
+
+[node name="dino_hp_bar" type="ProgressBar" parent="dino"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 4)
+layout_mode = 0
+offset_left = 2.0
+offset_top = 14.0
+offset_right = 82.0
+offset_bottom = 18.0
+theme_type_variation = &"HPBAR"
+max_value = 1.0
+value = 0.5
+show_percentage = false
+metadata/_edit_lock_ = true
+
+[node name="dino_hp_label" type="Label" parent="dino"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 2.0
+offset_top = 15.0
+offset_right = 42.0
+offset_bottom = 28.0
+text = "000/000"
+metadata/_edit_lock_ = true
+
+[node name="scientist" type="Control" parent="."]
+custom_minimum_size = Vector2(160, 144)
+anchors_preset = 0
+offset_right = 160.0
+offset_bottom = 144.0
+
+[node name="scientist_name" type="Label" parent="scientist"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(158, 0)
+layout_mode = 0
+offset_top = 64.0
+offset_right = 158.0
+offset_bottom = 77.0
+text = "scientist_name"
+horizontal_alignment = 2
+
+[node name="scientist_hp_bar" type="ProgressBar" parent="scientist"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 4)
+layout_mode = 0
+offset_left = 78.0
+offset_top = 76.0
+offset_right = 158.0
+offset_bottom = 80.0
+theme_type_variation = &"HPBAR"
+max_value = 1.0
+value = 0.5
+show_percentage = false
+
+[node name="scientist_portrait" type="TextureRect" parent="scientist"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 17.0
+offset_top = 49.0
+offset_right = 57.0
+offset_bottom = 89.0
+texture = ExtResource("3_ppua2")
+
+[node name="scientist_hp_label" type="Label" parent="scientist"]
+custom_minimum_size = Vector2(158, 0)
+layout_mode = 0
+offset_top = 77.0
+offset_right = 158.0
+offset_bottom = 90.0
+text = "000/000"
+horizontal_alignment = 2
+
+[node name="battle_log_panel" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_top = 90.0
+offset_right = 160.0
+offset_bottom = 145.0
+theme_type_variation = &"CombatLogPanel"

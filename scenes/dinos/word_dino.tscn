@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://8p0yob2rivoe"]
+
+[ext_resource type="Script" uid="uid://ydlfmq0t4v8f" path="res://code/dinos/world_dino.gd" id="1_oatv4"]
+[ext_resource type="Texture2D" uid="uid://b7mco6271xeot" path="res://textures/white_circle_16x16.png" id="2_d27xs"]
+
+[node name="WordDino" type="Area2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_oatv4")
+metadata/_custom_type_script = "uid://ydlfmq0t4v8f"
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_d27xs")
+
+[node name="detection_collider" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true

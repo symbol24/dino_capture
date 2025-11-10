@@ -1,6 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://c14rnjcmd3w21"]
+[gd_scene load_steps=4 format=3 uid="uid://c14rnjcmd3w21"]
 
 [ext_resource type="Script" uid="uid://cw1sawtworr4x" path="res://code/scientists/world_scientist.gd" id="1_cwrjh"]
+[ext_resource type="Texture2D" uid="uid://biakcfflvpp4v" path="res://textures/white_16x16.png" id="2_bno6w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bc4s1"]
+radius = 4.0
 
 [node name="WorldScientist" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_cwrjh")
+
+[node name="sprite" type="Sprite2D" parent="."]
+modulate = Color(3.657937e-06, 0.7130304, 0.17554498, 1)
+texture = ExtResource("2_bno6w")
+
+[node name="move_collider" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_bc4s1")

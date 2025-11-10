@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="DinoData" load_steps=2 format=3 uid="uid://chdncw5fa8763"]
+
+[ext_resource type="Script" uid="uid://m22qpyigoj1p" path="res://code/dinos/dino_data.gd" id="1_ty14p"]
+
+[resource]
+script = ExtResource("1_ty14p")
+metadata/_custom_type_script = "uid://m22qpyigoj1p"

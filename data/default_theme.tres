@@ -1,0 +1,43 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cw623lek0e6wu"]
+
+[ext_resource type="FontFile" uid="uid://bv36xysrvoqyf" path="res://data/m5x7.ttf" id="1_x3fhk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_47hc6"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.7921569, 0.8627451, 0.62352943, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.05882353, 0.21960784, 0.05882353, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x3fhk"]
+bg_color = Color(0.60784316, 0.7372549, 0.05882353, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.05882353, 0.21960784, 0.05882353, 1)
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uiit7"]
+bg_color = Color(0.1882353, 0.38431373, 0.1882353, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.8, 0.8, 0.8, 0)
+anti_aliasing = false
+
+[resource]
+default_font = ExtResource("1_x3fhk")
+CombatLogPanel/base_type = &"PanelContainer"
+CombatLogPanel/styles/panel = SubResource("StyleBoxFlat_47hc6")
+HPBAR/base_type = &"ProgressBar"
+HPBAR/styles/background = SubResource("StyleBoxFlat_x3fhk")
+HPBAR/styles/fill = SubResource("StyleBoxFlat_uiit7")
+Label/colors/font_color = Color(0.05882353, 0.21960784, 0.05882353, 1)
