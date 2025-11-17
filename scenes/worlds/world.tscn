@@ -1,8 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://chwlfqk7l6vww"]
+[gd_scene load_steps=8 format=3 uid="uid://chwlfqk7l6vww"]
 
 [ext_resource type="Script" uid="uid://chii73nsvqjue" path="res://code/worlds/world.gd" id="1_6e51n"]
 [ext_resource type="PackedScene" uid="uid://c14rnjcmd3w21" path="res://scenes/scientists/world_scientist.tscn" id="2_mnksr"]
 [ext_resource type="PackedScene" uid="uid://8p0yob2rivoe" path="res://scenes/dinos/word_dino.tscn" id="3_sqeqr"]
+[ext_resource type="Resource" uid="uid://p5bfe07co3xk" path="res://data/scientists/test_scientist.tres" id="3_vpaal"]
+[ext_resource type="Resource" uid="uid://chdncw5fa8763" path="res://data/dinos/test_dino.tres" id="4_jwygn"]
+[ext_resource type="Script" uid="uid://m22qpyigoj1p" path="res://code/dinos/dino_data.gd" id="5_0qnlt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwygn"]
 size = Vector2(89, 4)
@@ -12,10 +15,12 @@ script = ExtResource("1_6e51n")
 
 [node name="WorldScientist" parent="." instance=ExtResource("2_mnksr")]
 position = Vector2(75, 123)
+debug_data = ExtResource("3_vpaal")
 
 [node name="WordDino" parent="." instance=ExtResource("3_sqeqr")]
 position = Vector2(135, 44)
 is_horizontal = true
+datas = Array[ExtResource("5_0qnlt")]([ExtResource("4_jwygn")])
 
 [node name="detection_collider" parent="WordDino" index="1"]
 position = Vector2(-51.5, 0)

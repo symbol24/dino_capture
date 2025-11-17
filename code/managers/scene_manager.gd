@@ -15,9 +15,9 @@ var _extra_time := false
 
 
 func _ready() -> void:
+	name = &"SceneManager"
 	process_mode = PROCESS_MODE_ALWAYS
 	Signals.load_scene.connect(_load_scene)
-	#Signals.unload_level.connect(_unload_level)
 
 
 func _process(_delta: float) -> void:
@@ -31,7 +31,7 @@ func _process(_delta: float) -> void:
 
 
 func _load_scene(id:StringName, disply_loading:bool, extra_time:bool) -> void:
-	print("Loading: ", id)
+	#print("Loading: ", id)
 	if not SCENES.list.has(id):
 		push_warning("'%s' is not in the list of scenes available to load!" % id)
 		return
@@ -46,7 +46,7 @@ func _load_scene(id:StringName, disply_loading:bool, extra_time:bool) -> void:
 	if current_level != null:
 		var temp = current_level
 		current_level = null
-		remove_child(temp)
+		get_tree().root.remove_child(temp)
 		temp.queue_free.call_deferred()
 
 	ResourceLoader.load_threaded_request(SCENES.list[_to_load])
@@ -57,7 +57,7 @@ func _load_scene(id:StringName, disply_loading:bool, extra_time:bool) -> void:
 func _complete_load() -> void:
 	_loading = false
 	current_level = ResourceLoader.load_threaded_get(SCENES.list[_to_load]).instantiate()
-	add_child(current_level)
+	get_tree().root.add_child.call_deferred(current_level)
 	if not current_level.is_node_ready(): await current_level.ready
 	if _extra_time: await get_tree().create_timer(EXTRA_LOAD_TIME).timeout
 	Signals.toggle_pause.emit(false)

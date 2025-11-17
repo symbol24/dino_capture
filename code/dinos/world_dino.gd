@@ -5,7 +5,7 @@ const TIME_TO_SCIENTIST := 0.75
 
 
 @export var is_horizontal := false
-@export var data:DinoData
+@export var datas:Array[DinoData]
 var _target_pos:Vector2
 var _tiggered := false
 var _scientist:WorldScientist
@@ -15,6 +15,8 @@ var _scientist:WorldScientist
 
 func _ready() -> void:
 	body_entered.connect(_body_entered)
+	for each in datas:
+		each.setup_entity()
 
 
 func _body_entered(_body) -> void:
@@ -41,5 +43,9 @@ func _detected_scientist() -> void:
 
 func _move_to_scientist() -> void:
 	var tween := create_tween()
-	tween.finished.connect(_scientist.enter_combat)
+	tween.finished.connect(_enter_combat)
 	tween.tween_property(self, "global_position", _target_pos, TIME_TO_SCIENTIST)
+
+
+func _enter_combat() -> void:
+	Signals.enter_combat.emit(datas)

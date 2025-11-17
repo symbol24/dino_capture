@@ -6,6 +6,9 @@ const ACCELERATION := 200.0
 const FRICTION := 300.0
 
 
+@export var debug_data:ScientistData
+
+var data:ScientistData
 var direction:Vector2
 
 var _input:InputController
@@ -23,7 +26,9 @@ func _process(delta: float) -> void:
 		move_and_slide()
 
 
-func setup_world_character() -> void:
+func setup_world_character(new_data:ScientistData = debug_data) -> void:
+	assert(debug_data != null, "Someone forgot the debug data for the scientist!")
+	data = new_data.duplicate()
 	_input = WorldPlayerController.new(&"world_player")
 	add_child(_input)
 	_input.register()
@@ -39,10 +44,6 @@ func detected() -> void:
 	velocity = Vector2.ZERO
 
 
-func enter_combat() -> void:
-	pass
-
-
 func enter_world() -> void:
 	_input.activate()
 	_detected = false
@@ -52,7 +53,6 @@ func _move(delta:float) -> Vector2:
 	if direction == Vector2.ZERO:
 		return velocity.move_toward(Vector2.ZERO, delta * FRICTION)
 	else:
-		#return current.move_toward(current + (direction * _data.speed), delta * CharacterData.ACCELERATION)
 		var x:float = move_toward(velocity.x, direction.x * SPEED, delta * ACCELERATION)
 		var y:float = move_toward(velocity.y, direction.y * SPEED, delta * ACCELERATION)
 		return Vector2(x, y)

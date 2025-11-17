@@ -35,6 +35,8 @@ anti_aliasing = false
 
 [resource]
 default_font = ExtResource("1_x3fhk")
+CombatLog/base_type = &"RichTextLabel"
+CombatLog/colors/default_color = Color(0.05882353, 0.21960784, 0.05882353, 1)
 CombatLogPanel/base_type = &"PanelContainer"
 CombatLogPanel/styles/panel = SubResource("StyleBoxFlat_47hc6")
 HPBAR/base_type = &"ProgressBar"

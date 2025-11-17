@@ -8,6 +8,7 @@ var _rids:Array[RiDControl] = []
 
 
 func _ready() -> void:
+	name = &"UiCanvas"
 	Signals.toggle_screen.connect(_toggle_rid)
 
 

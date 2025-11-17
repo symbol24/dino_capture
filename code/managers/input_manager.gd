@@ -12,6 +12,11 @@ func _init() -> void:
 	add_to_group(&"input_manager")
 
 
+func _ready() -> void:
+	name = &"InputManager"
+	process_mode = PROCESS_MODE_ALWAYS
+
+
 func _process(delta: float) -> void:
 	if _active != null:
 		_active.process_input(delta)

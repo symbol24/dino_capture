@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ScientistData" load_steps=2 format=3 uid="uid://p5bfe07co3xk"]
+
+[ext_resource type="Script" uid="uid://bxwbb76frs8ov" path="res://code/scientists/scientist_data.gd" id="1_g50nb"]
+
+[resource]
+script = ExtResource("1_g50nb")
+id = &"test_scientist"
+display_name = "test_scientist"
+description = "this is a test scientist"
+metadata/_custom_type_script = "uid://bxwbb76frs8ov"
