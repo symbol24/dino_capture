@@ -6,13 +6,14 @@ const ACCELERATION := 200.0
 const FRICTION := 300.0
 
 
-@export var debug_data:ScientistData
-
 var data:ScientistData
 var direction:Vector2
-
 var _input:InputController
 var _detected := false
+var _game_manager:GameManager = null:
+	get:
+		if _game_manager == null: _game_manager = get_tree().get_first_node_in_group(&"game_manager")
+		return _game_manager
 
 
 func _ready() -> void:
@@ -26,9 +27,9 @@ func _process(delta: float) -> void:
 		move_and_slide()
 
 
-func setup_world_character(new_data:ScientistData = debug_data) -> void:
-	assert(debug_data != null, "Someone forgot the debug data for the scientist!")
-	data = new_data.duplicate()
+func setup_world_character() -> void:
+	data = _game_manager.active_scientist
+	data.setup_entity()
 	_input = WorldPlayerController.new(&"world_player")
 	add_child(_input)
 	_input.register()

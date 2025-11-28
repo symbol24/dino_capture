@@ -7,17 +7,28 @@ const CHAR_TIME := 0.08
 const ARRIVAL_TEXT := "A surprised %s has appeared!"
 const BLINK_WAIT := 0.6
 const INPUT_DELAY := 0.2
+const FLASH_TIME := 0.2
+const FLASH_COUNT := 3
+const RUN_AWAY_TIME := 1.0
 
 
-var dinos:Array[DinoData]
-var scientists:Array[ScientistData]
-var input_controller:CombatInputController
+var _input_controller:CombatInputController
 var _log:Array[String] = []
 var _writing := false
 var _blink := false
 var _awaiting_input := false
 var _skip_text := false
 var _input_delay := false
+var _menu_pos := 0
+var _dino_ran_away := false
+var _game_manager:GameManager = null:
+	get:
+		if _game_manager == null: _game_manager = get_tree().get_first_node_in_group(&"game_manager")
+		return _game_manager
+var _combat_manager:CombatManager = null:
+	get:
+		if _combat_manager == null: _combat_manager = get_tree().get_first_node_in_group(&"combat_manager")
+		return _combat_manager
 
 @onready var dino_name: Label = %dino_name
 @onready var dino_portrait: TextureRect = %dino_portrait
@@ -29,23 +40,30 @@ var _input_delay := false
 @onready var scientist_hp_label: Label = %scientist_hp_label
 @onready var combat_log: RichTextLabel = %combat_log
 @onready var continue_sprite: TextureRect = %continue_sprite
+@onready var combat_menu: PanelContainer = %combat_menu
+@onready var btn_icons:Array[TextureRect] = [%distract_icon, %capture_icon, %runaway_icon]
 
 
 func _ready() -> void:
 	Signals.return_dino_data.connect(_setup_dino)
 	Signals.return_scientist_data.connect(_setup_scientist)
 	Signals.display_combat_log.connect(_add_text_to_log)
+	Signals.display_combat_menu.connect(_display_combat_menu)
+	Signals.update_hp.connect(_update_hp)
+	Signals.blink_portrait.connect(_blink_portrait)
+	Signals.dino_run_away.connect(_dino_run_away)
 	modulate = Color.TRANSPARENT
-	input_controller = CombatInputController.new(&"combat_input_controller")
-	add_child(input_controller)
-	input_controller.register()
+	_input_controller = CombatInputController.new(&"combat_input_controller")
+	add_child(_input_controller)
+	_input_controller.register()
 
 
 func toggle_rid_control(_id := &"", display := false) -> void:
 	if _id == id:
 		if display:
-			input_controller.activate()
-			_get_datas()
+			_input_controller.activate()
+			_setup_dino()
+			_setup_scientist()
 			show()
 			_intro()
 		else:
@@ -54,6 +72,7 @@ func toggle_rid_control(_id := &"", display := false) -> void:
 
 
 func press_any_button() -> void:
+	if combat_menu.visible: return
 	if not _input_delay:
 		_input_delay = true
 		if not _writing:
@@ -62,6 +81,12 @@ func press_any_button() -> void:
 				_awaiting_input = false
 				if not _log.is_empty():
 					_display_log_text()
+				else:
+					if _dino_ran_away:
+						toggle_rid_control(id, false)
+						Signals.toggle_screen.emit(&"world_ui", true)
+					else:
+						_display_combat_menu()
 		else:
 			if not _skip_text:
 				_skip_text = true
@@ -69,40 +94,58 @@ func press_any_button() -> void:
 		get_tree().create_timer(INPUT_DELAY).timeout.connect(_reset_input_delay)
 
 
-func _get_datas() -> void:
-	Signals.request_dino_data.emit()
-	Signals.request_scientist_data.emit()
+func move_menu_selection(is_up := false) -> void:
+	if not _input_delay:
+		if not _awaiting_input and combat_menu.visible:
+			_menu_pos = _menu_pos - 1 if is_up else _menu_pos + 1
+			if _menu_pos < 0: _menu_pos = btn_icons.size()-1
+			elif _menu_pos >= btn_icons.size(): _menu_pos = 0
+			_toggle_icons()
+
+		get_tree().create_timer(INPUT_DELAY).timeout.connect(_reset_input_delay)
 
 
-func _setup_dino(_dinos:Array[DinoData]) -> void:
-	assert(not _dinos.is_empty(), "No dinos received by combat ui, shutting down.")
-	dinos = _dinos
-	dino_name.text = dinos[0].display_name
-	if dinos[0].sprite != null : dino_portrait.texture = dinos[0].sprite
-	dino_hp_bar.value = dinos[0].max_hp / dinos[0].current_hp
-	dino_hp_label.text = str(dinos[0].current_hp) + "/" + str(dinos[0].max_hp)
+func select_combat_option() -> void:
+	if combat_menu.visible and not _input_delay:
+		var menu_option := &"attack"
+		match _menu_pos:
+			1:
+				menu_option = &"capture"
+			2:
+				menu_option = &"run_away"
+			_:
+				menu_option = &"attack"
+		Signals.select_combat_action.emit(menu_option)
+		combat_menu.hide()
+		get_tree().create_timer(INPUT_DELAY).timeout.connect(_reset_input_delay)
 
 
-func _setup_scientist(_scientists:Array[ScientistData]) -> void:
-	assert(not _scientists.is_empty(), "No Scientist datas. Shutting Down.")
-	scientists = _scientists
-	scientist_name.text = scientists[0].display_name
-	if scientists[0].sprite != null: scientist_portrait.texture = scientists[0].sprite
-	scientist_hp_bar.value = scientists[0].current_hp / scientists[0].max_hp
-	scientist_hp_label.text = str(scientists[0].current_hp) + "/" + str(scientists[0].max_hp)
+func _setup_dino() -> void:
+	dino_name.text = _combat_manager.active_dino.display_name
+	if _combat_manager.active_dino.sprite != null : dino_portrait.texture = _combat_manager.active_dino.sprite
+	dino_hp_bar.value = _combat_manager.active_dino.max_hp / _combat_manager.active_dino.current_hp
+	dino_hp_label.text = str(_combat_manager.active_dino.current_hp) + "/" + str(_combat_manager.active_dino.max_hp)
+	_dino_ran_away = false
+
+
+func _setup_scientist() -> void:
+	scientist_name.text = _game_manager.active_scientist.display_name
+	if _game_manager.active_scientist.sprite != null: scientist_portrait.texture = _game_manager.active_scientist.sprite
+	scientist_hp_bar.value = _game_manager.active_scientist.current_hp / _game_manager.active_scientist.max_hp
+	scientist_hp_label.text = str(_game_manager.active_scientist.current_hp) + "/" + str(_game_manager.active_scientist.max_hp)
 
 
 func _intro() -> void:
 	var tween := create_tween()
 	tween.tween_property(self, "modulate", Color.WHITE, IN_TIME)
 	await tween.finished
-	_log.append(ARRIVAL_TEXT % dinos[0].display_name)
-	_display_log_text()
-	_test_logs()
+	_add_text_to_log(ARRIVAL_TEXT % _combat_manager.active_dino.display_name)
+	Signals.start_combat.emit()
 
 
 func _add_text_to_log(value:String) -> void:
 	_log.append(value)
+	if not _blink and not _awaiting_input: _display_log_text()
 
 
 func _display_log_text() -> void:
@@ -120,6 +163,7 @@ func _display_log_text() -> void:
 	_writing = false
 	_awaiting_input = true
 	_start_blinking()
+	Signals.combat_log_awaiting.emit()
 
 
 func _outro() -> void:
@@ -143,6 +187,7 @@ func _start_blinking() -> void:
 func _stop_blinking() -> void:
 	_blink = false
 	continue_sprite.hide()
+	Signals.combat_log_continues.emit()
 
 
 func _test_logs() -> void:
@@ -154,3 +199,38 @@ func _test_logs() -> void:
 
 func _reset_input_delay() -> void:
 	_input_delay = false
+
+
+func _display_combat_menu() -> void:
+	_menu_pos = 0
+	combat_menu.show()
+
+
+func _toggle_icons() -> void:
+	for each in btn_icons:
+		each.hide()
+	
+	btn_icons[_menu_pos].show()
+
+
+func _blink_portrait(data:EntityData) -> void:
+	var portrait := scientist_portrait if data is ScientistData else dino_portrait
+	var tween := create_tween()
+	for x in FLASH_COUNT:
+		tween.tween_property(portrait, "modulate", Color.TRANSPARENT, FLASH_TIME)
+		tween.tween_property(portrait, "modulate", Color.WHITE, FLASH_TIME)
+
+
+func _update_hp(data:EntityData) -> void:
+	if data is ScientistData:
+		scientist_hp_bar.value = float(data.current_hp) / float(data.max_hp)
+		scientist_hp_label.text = str(data.current_hp) + "/" + str(data.max_hp)
+	else:
+		dino_hp_bar.value = float(data.current_hp) / float(data.max_hp)
+		dino_hp_label.text = str(data.current_hp) + "/" + str(data.max_hp)
+
+
+func _dino_run_away() -> void:
+	_dino_ran_away = true
+	var tween := create_tween()
+	tween.tween_property(dino_portrait, "modulate", Color.TRANSPARENT, RUN_AWAY_TIME)

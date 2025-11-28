@@ -7,4 +7,5 @@ script = ExtResource("1_g50nb")
 id = &"test_scientist"
 display_name = "test_scientist"
 description = "this is a test scientist"
+_starting_hp = 10
 metadata/_custom_type_script = "uid://bxwbb76frs8ov"

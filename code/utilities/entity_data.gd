@@ -42,4 +42,6 @@ func update_hp(value:int) -> int:
 		current_hp = 0
 	elif current_hp > max_hp:
 		current_hp = max_hp
+	if value < 0: Signals.blink_portrait.emit(self)
+	Signals.update_hp.emit(self)
 	return current_hp

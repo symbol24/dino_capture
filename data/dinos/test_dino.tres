@@ -7,4 +7,6 @@ script = ExtResource("1_ty14p")
 id = &"test"
 display_name = "test dino"
 description = "this is a test dino"
+_starting_hp = 100
+starting_speed = 500
 metadata/_custom_type_script = "uid://m22qpyigoj1p"

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://d1rac6si7robk"]
+[gd_scene load_steps=6 format=3 uid="uid://d1rac6si7robk"]
 
 [ext_resource type="Script" uid="uid://bhdivbukgdmm0" path="res://code/ui/combat_ui.gd" id="1_n7134"]
 [ext_resource type="Texture2D" uid="uid://cllhml3s3qtx8" path="res://textures/temp_combat_dino.png" id="2_21fn4"]
 [ext_resource type="Texture2D" uid="uid://cmmanjanqo8k2" path="res://textures/temp_combat_scientist.png" id="3_ppua2"]
 [ext_resource type="Texture2D" uid="uid://c8t18xuluck2e" path="res://textures/white 8x8.png" id="4_ynof4"]
+[ext_resource type="Texture2D" uid="uid://biakcfflvpp4v" path="res://textures/white_16x16.png" id="5_8twgj"]
 
 [node name="CombatUi" type="Control"]
 layout_mode = 3
@@ -121,9 +122,9 @@ horizontal_alignment = 2
 
 [node name="battle_log_panel" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_top = 90.0
+offset_top = 88.0
 offset_right = 160.0
-offset_bottom = 145.0
+offset_bottom = 144.0
 theme_type_variation = &"CombatLogPanel"
 
 [node name="combat_log" type="RichTextLabel" parent="battle_log_panel"]
@@ -135,10 +136,10 @@ scroll_following = true
 shortcut_keys_enabled = false
 vertical_alignment = 2
 
-[node name="continue_space" type="Control" parent="battle_log_panel"]
+[node name="float_control" type="Control" parent="battle_log_panel"]
 layout_mode = 2
 
-[node name="continue_sprite" type="TextureRect" parent="battle_log_panel/continue_space"]
+[node name="continue_sprite" type="TextureRect" parent="battle_log_panel/float_control"]
 unique_name_in_owner = true
 visible = false
 layout_mode = 1
@@ -152,3 +153,70 @@ offset_top = -8.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("4_ynof4")
+
+[node name="combat_menu" type="PanelContainer" parent="battle_log_panel/float_control"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -78.0
+offset_top = -2.0
+offset_right = 2.0
+offset_bottom = 54.0
+grow_horizontal = 0
+theme_type_variation = &"CombatSubMenu"
+
+[node name="menu" type="GridContainer" parent="battle_log_panel/float_control/combat_menu"]
+layout_mode = 2
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="combat_menu_btn" type="Control" parent="battle_log_panel/float_control/combat_menu/menu"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="distract_icon" type="TextureRect" parent="battle_log_panel/float_control/combat_menu/menu/combat_menu_btn"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("5_8twgj")
+
+[node name="Label" type="Label" parent="battle_log_panel/float_control/combat_menu/menu"]
+layout_mode = 2
+text = "Distract"
+
+[node name="combat_menu_btn2" type="Control" parent="battle_log_panel/float_control/combat_menu/menu"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="capture_icon" type="TextureRect" parent="battle_log_panel/float_control/combat_menu/menu/combat_menu_btn2"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("5_8twgj")
+
+[node name="Label2" type="Label" parent="battle_log_panel/float_control/combat_menu/menu"]
+layout_mode = 2
+text = "Capture"
+
+[node name="combat_menu_btn3" type="Control" parent="battle_log_panel/float_control/combat_menu/menu"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+
+[node name="runaway_icon" type="TextureRect" parent="battle_log_panel/float_control/combat_menu/menu/combat_menu_btn3"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0
+texture = ExtResource("5_8twgj")
+
+[node name="Label3" type="Label" parent="battle_log_panel/float_control/combat_menu/menu"]
+layout_mode = 2
+text = "Run Away"
